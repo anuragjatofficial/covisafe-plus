@@ -1,6 +1,11 @@
 # Stage 1: Build the Java application with Maven
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
+# Copy only the pom.xml to take advantage of caching
+
+COPY ./pom.xml ./
+RUN mvn dependency:go-offline
+
 COPY . ./
 RUN mvn clean package -DskipTests
 
@@ -8,5 +13,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17.0.1-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/CoviSafe-Web-Services-0.0.1-SNAPSHOT.jar CoviSafe-Web-Services.jar
+
 EXPOSE 8080
+
 CMD ["java", "-jar", "CoviSafe-Web-Services.jar"]

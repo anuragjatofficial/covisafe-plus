@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend/covisafe-admin
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    # environment:
+    #   - NODE_ENV=development
+
+  backend:
+    build:
+      context: ./backend/CoviSafe-Web-Services
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/covisafe"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "password"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: covisafe
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
