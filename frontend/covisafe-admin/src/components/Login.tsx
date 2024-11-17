@@ -41,7 +41,15 @@ const Login: React.FC = () => {
 
   return (
     <div className="w-full h-[90vh] justify-center items-center flex ">
-      <Flex flexDir={"column"} w={"25%"} minW={"400px"} shadow={"lg"} padding={"10"} margin={"auto"} borderRadius={"xl"}>
+      <Flex
+        flexDir={"column"}
+        w={"25%"}
+        minW={"400px"}
+        shadow={"lg"}
+        padding={"10"}
+        margin={"auto"}
+        borderRadius={"xl"}
+      >
         <div className="m-auto rounded-md">
           <div className="rounded-lg bg-gray-300 p-4">
             <a
@@ -61,6 +69,7 @@ const Login: React.FC = () => {
             <Input
               type={"email"}
               value={email}
+              autoComplete="current-email"
               onChange={(e) => setEmail(e.target.value)}
               borderRadius={"md"}
               required={true}
@@ -74,6 +83,7 @@ const Login: React.FC = () => {
               <Input
                 type={view ? "text" : "password"}
                 value={password}
+                autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
                 borderRadius={"md"}
                 required={true}

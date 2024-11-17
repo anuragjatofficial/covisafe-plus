@@ -30,13 +30,7 @@ public class UserControllor {
 	@PostMapping("/users/register")
 	ResponseEntity<AuthenticationResponse> registerUser(@Valid @RequestBody IdCard user) {
 		log.info(user.toString());
-		user.setPassword(
-				passwordEncoder
-				.encode(
-						user
-						.getPassword()
-				)
-		);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(Role.valueOf("MEMBER"));
 		return new ResponseEntity<AuthenticationResponse>(userService.register(user), HttpStatus.CREATED);
 	}

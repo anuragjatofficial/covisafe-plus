@@ -1,19 +1,46 @@
-import { DeleteIcon } from '@chakra-ui/icons';
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormControl, FormLabel, Icon, Input, InputGroup, InputLeftAddon, Select, Switch, Td, Tr, useToast } from '@chakra-ui/react';
-import React, { Dispatch, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { BeatLoader } from 'react-spinners';
-import { EditAppointmentDataAction, EditAppointmentRequestBody } from '../redux/actions/types/appointmentDataTypes';
-import { fetchAppointmentData, updateAppointmentData } from '../redux/actions/appointmentAction';
-import { RootState } from '../redux/type';
-const bookingDet: EditAppointmentRequestBody = {
-  bookingId: '',
-  mobileNo: 0,
-  dateOfBooking: '',
-  slot: '',
-  bookingStatus: false
-};
-export default function AppointmentRow({  
+import { DeleteIcon } from "@chakra-ui/icons";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  FormControl,
+  FormLabel,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  Select,
+  Switch,
+  Td,
+  Tr,
+  useToast,
+} from "@chakra-ui/react";
+import React, { Dispatch, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BeatLoader } from "react-spinners";
+import {
+  EditAppointmentDataAction,
+  EditAppointmentRequestBody,
+} from "../redux/actions/types/appointmentDataTypes";
+import {
+  fetchAppointmentData,
+  updateAppointmentData,
+} from "../redux/actions/appointmentAction";
+import { RootState } from "../redux/type";
+
+export default function AppointmentRow({
   i,
   e,
   deleteAppointment,
@@ -24,25 +51,29 @@ export default function AppointmentRow({
   deleteAppointmentLoading,
   handleDelete,
 }: any) {
-
+  const [bookingDet, setBookingDet] = useState<EditAppointmentRequestBody>({
+    bookingId: "",
+    mobileNo: 0,
+    dateOfBooking: "",
+    slot: "",
+    bookingStatus: false,
+  });
   const [bookingDate, setBookingDate] = useState(e.dateOfBooking);
   const [bookingStatus, setBookingstatus] = useState(e.bookingStatus);
-  const [mobileNo,setMobileNo] = useState(e.mobileNo);
-  const [isDisabled,setIsDisabled] = useState(true);
-  const [slot,setSlot] = useState(e.slot);
-  const [bookingId,setBookingId] = useState(e.bookingId);
+  const [mobileNo, setMobileNo] = useState(e.mobileNo);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [slot, setSlot] = useState(e.slot);
+  const [bookingId, setBookingId] = useState(e.bookingId);
   const editLoading: boolean = useSelector(
     (state: RootState) => state.editAppointmentData.loading
   );
 
-
-  const state:RootState = useSelector((state:RootState)=>state);
+  const state: RootState = useSelector((state: RootState) => state);
 
   const dispatch: any = useDispatch();
   const toast = useToast();
 
-  const handleEdit = ()=>{
-
+  const handleEdit = () => {
     const booking: EditAppointmentRequestBody = {
       bookingId: e.bookingId,
       mobileNo: mobileNo,
@@ -51,25 +82,24 @@ export default function AppointmentRow({
       bookingStatus: bookingStatus,
     };
 
-    const token:string = localStorage.getItem('token') || "";
+    const token: string = localStorage.getItem("token") || "";
 
-    dispatch(updateAppointmentData(token,toast,booking))
-    .then(()=>{
+    dispatch(updateAppointmentData(token, toast, booking)).then(() => {
       dispatch(fetchAppointmentData(token));
 
-      console.log(state); 
+      console.log(state);
       console.log(editLoading);
-      
-      
+
       editAppointmentDisclosure.onClose();
     });
-
+  };
+  const handleValueChange = ()=>{
+    // setBookingDet()
   };
   return (
     <>
       <Tr
         onClick={() => {
-
           setBookingDate(e.dateOfBooking);
           setBookingstatus(e.bookingStatus);
           setMobileNo(e.mobileNo);
@@ -78,15 +108,14 @@ export default function AppointmentRow({
           setBookingId(e.bookingId);
 
           bookingDet.bookingId = e.bookingId;
-          bookingDet.bookingStatus = e.bookingStatus
-          bookingDet.dateOfBooking = e.dateOfBooking
-          bookingDet.mobileNo = e.mobileNo
-          bookingDet.slot = e.slot
+          bookingDet.bookingStatus = e.bookingStatus;
+          bookingDet.dateOfBooking = e.dateOfBooking;
+          bookingDet.mobileNo = e.mobileNo;
+          bookingDet.slot = e.slot;
           editAppointmentDisclosure.onOpen();
         }}
         ref={editref}
         cursor={"pointer"}
-        
       >
         <Td className="text-black font-medium">
           <p className="py-1">{e.slot}</p>
@@ -222,7 +251,11 @@ export default function AppointmentRow({
 
           <DrawerBody>
             <FormLabel>Booking Id</FormLabel>
-            <Input placeholder="appointmentId" value={bookingDet.bookingId} disabled />
+            <Input
+              placeholder="appointmentId"
+              value={bookingDet.bookingId}
+              disabled
+            />
             <FormControl className="my-5">
               <FormLabel>Booking Status</FormLabel>
               <Flex className="justify-between">
@@ -284,7 +317,7 @@ export default function AppointmentRow({
                   setBookingDate(e.target.value);
                   setIsDisabled(false);
                 }}
-                value={bookingDet.dateOfBooking   }
+                value={bookingDet.dateOfBooking}
               />
             </FormControl>
 

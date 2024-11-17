@@ -64,13 +64,9 @@ public class UserServiceImpl implements UserService {
 				)
 		);
 		
-		User user = userRepository.findByEmail(
-					authenticationRequest.getEmail()
-				)
-				.orElseThrow(
-						()-> new InvalidUserException(
-									"can't find any user with email "+authenticationRequest.getEmail()
-								)
+		User user = userRepository.findByEmail(authenticationRequest.getEmail())
+				.orElseThrow(()-> 
+					new InvalidUserException("can't find any user with email "+authenticationRequest.getEmail())
 				);
 		
 		var jwtToken = jwtService.generateToken(user);

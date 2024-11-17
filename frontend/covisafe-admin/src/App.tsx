@@ -10,12 +10,12 @@ export const App = () => {
 
   return (
     <>
-      <div className="bg-[#F5F5F5]">
+      {/* <div className="bg-[#F5F5F5]"> */}
         <NavBar />
-        <Appointments/>
+        {/* <Appointments/>
         <DashBoard/>
-        <Login />
-      </div>
+        <Login /> */}
+      {/* </div> */}
     </>
   );
 };
