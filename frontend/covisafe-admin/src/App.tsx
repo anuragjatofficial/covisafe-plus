@@ -5,17 +5,9 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import DashBoard from "./components/DashBoard";
 import Appointments from "./components/Appointments";
+import Router from "./components/Router";
+import Layout from "./components/Layout";
 
 export const App = () => {
-
-  return (
-    <>
-      {/* <div className="bg-[#F5F5F5]"> */}
-        <NavBar />
-        {/* <Appointments/>
-        <DashBoard/>
-        <Login /> */}
-      {/* </div> */}
-    </>
-  );
+  return <Layout />;
 };
