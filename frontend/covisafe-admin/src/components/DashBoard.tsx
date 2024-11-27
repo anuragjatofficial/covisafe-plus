@@ -243,6 +243,7 @@ export default function DashBoard() {
             <Input
               fontSize={"sm"}
               size={"md"}
+              placeholder="search here..."
               borderWidth={"1px"}
               focusBorderColor="gray.700"
               _focusVisible={{ border: "1px solid" }}
