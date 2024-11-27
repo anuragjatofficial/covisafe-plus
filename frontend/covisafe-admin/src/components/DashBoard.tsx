@@ -4,14 +4,29 @@ import {
   Button,
   Flex,
   Heading,
+  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
   Tab,
+  Table,
+  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
   useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +45,7 @@ import {
   ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import User from "./icons/User";
 
 ChartJS.register(
   CategoryScale,
@@ -284,6 +300,7 @@ export default function DashBoard() {
                 bg: "white",
                 textColor: "gray.800",
                 fontWeight: "500",
+                shadow: "sm",
               }}
               margin={1}
               paddingY={0}
@@ -359,7 +376,12 @@ export default function DashBoard() {
           </Flex>
         </Flex>
         <TabPanels>
-          <TabPanel paddingX={0} paddingY={7}>
+          <TabPanel
+            paddingX={0}
+            paddingY={7}
+            overflow={"auto"}
+            maxWidth={"full"}
+          >
             <Flex padding={0}>
               <div className="w-full border rounded-lg pb-10 pt-5 px-5">
                 {/* bar chart */}
@@ -383,6 +405,154 @@ export default function DashBoard() {
           </TabPanel>
         </TabPanels>
       </Tabs>
+
+      {/* Table section */}
+
+      <TableContainer
+        p={5}
+        border={"1px"}
+        borderColor={"gray.200"}
+        rounded={"md"}
+        overflow={"scroll"}
+        maxWidth={"full"}
+      >
+        <Flex alignItems={"center"} justifyContent={"space-between"}>
+          <h2 className=" font-semibold font-inter text-gray-600 pb-3">
+            Crypto Analytics
+          </h2>
+          <Flex>
+            {/* Menu */}
+            {/* <Button
+              size={"md"}
+              paddingX={"2.5"}
+              width={"fit-content"}
+              bg={"none"}
+              _focusVisible={{ outlineColor: "gray.800", outline: "1px solid" }}
+            >
+              <svg
+                width="24px"
+                height="24px"
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5.7 12.1143C4.82423 12.1143 4.11429 12.8242 4.11429 13.7C4.11429 14.5758 4.82423 15.2857 5.7 15.2857C6.57577 15.2857 7.28571 14.5758 7.28571 13.7C7.28571 12.8242 6.57577 12.1143 5.7 12.1143ZM2 13.7C2 11.6565 3.65655 10 5.7 10C7.74345 10 9.4 11.6565 9.4 13.7C9.4 15.7435 7.74345 17.4 5.7 17.4C3.65655 17.4 2 15.7435 2 13.7Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M22.7 12.1143C21.8242 12.1143 21.1143 12.8242 21.1143 13.7C21.1143 14.5758 21.8242 15.2857 22.7 15.2857C23.5758 15.2857 24.2857 14.5758 24.2857 13.7C24.2857 12.8242 23.5758 12.1143 22.7 12.1143ZM19 13.7C19 11.6565 20.6565 10 22.7 10C24.7435 10 26.4 11.6565 26.4 13.7C26.4 15.7435 24.7435 17.4 22.7 17.4C20.6565 17.4 19 15.7435 19 13.7Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M14.2 12.1143C13.3242 12.1143 12.6143 12.8242 12.6143 13.7C12.6143 14.5758 13.3242 15.2857 14.2 15.2857C15.0758 15.2857 15.7857 14.5758 15.7857 13.7C15.7857 12.8242 15.0758 12.1143 14.2 12.1143ZM10.5 13.7C10.5 11.6565 12.1565 10 14.2 10C16.2435 10 17.9 11.6565 17.9 13.7C17.9 15.7435 16.2435 17.4 14.2 17.4C12.1565 17.4 10.5 15.7435 10.5 13.7Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </Button> */}
+
+            <Menu>
+              <MenuButton
+                _focus={{ bgColor: "gray.800", color: "gray.50" }}
+                // isRound={true}
+                rounded={"full"}
+                p={2}
+                // variant="solid"
+                // colorScheme="teal"
+                color={"gray.800"}
+                // bg={"none"}
+                // className="!hover:bg-gray-800"
+                _hover={{ bgColor: "gray.800", color: "gray.50" }}
+                // aria-label="Done"
+                // fontSize="20px"
+              >
+                <svg
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.7 12.1143C4.82423 12.1143 4.11429 12.8242 4.11429 13.7C4.11429 14.5758 4.82423 15.2857 5.7 15.2857C6.57577 15.2857 7.28571 14.5758 7.28571 13.7C7.28571 12.8242 6.57577 12.1143 5.7 12.1143ZM2 13.7C2 11.6565 3.65655 10 5.7 10C7.74345 10 9.4 11.6565 9.4 13.7C9.4 15.7435 7.74345 17.4 5.7 17.4C3.65655 17.4 2 15.7435 2 13.7Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M22.7 12.1143C21.8242 12.1143 21.1143 12.8242 21.1143 13.7C21.1143 14.5758 21.8242 15.2857 22.7 15.2857C23.5758 15.2857 24.2857 14.5758 24.2857 13.7C24.2857 12.8242 23.5758 12.1143 22.7 12.1143ZM19 13.7C19 11.6565 20.6565 10 22.7 10C24.7435 10 26.4 11.6565 26.4 13.7C26.4 15.7435 24.7435 17.4 22.7 17.4C20.6565 17.4 19 15.7435 19 13.7Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M14.2 12.1143C13.3242 12.1143 12.6143 12.8242 12.6143 13.7C12.6143 14.5758 13.3242 15.2857 14.2 15.2857C15.0758 15.2857 15.7857 14.5758 15.7857 13.7C15.7857 12.8242 15.0758 12.1143 14.2 12.1143ZM10.5 13.7C10.5 11.6565 12.1565 10 14.2 10C16.2435 10 17.9 11.6565 17.9 13.7C17.9 15.7435 16.2435 17.4 14.2 17.4C12.1565 17.4 10.5 15.7435 10.5 13.7Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </MenuButton>
+              <MenuList>
+                <MenuGroup>
+                  <MenuItem>Refresh</MenuItem>
+                  <MenuItem>Export </MenuItem>
+                </MenuGroup>
+              </MenuList>
+            </Menu>
+          </Flex>
+        </Flex>
+        <Table size="sm">
+          <Thead>
+            <Tr className="border-spacing-9">
+              <Th py={3}>ID</Th>
+              <Th py={3}>Name</Th>
+              <Th py={3}>Coin</Th>
+              <Th py={3}>Date</Th>
+              <Th py={3}>Process</Th>
+              <Th py={3}>Amount</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>#1234</Td>
+              <Td>Amy Yelsner</Td>
+              <Td>
+                <i className="pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center"></i>
+              </Td>
+              <Td>May 5th</Td>
+              <Td>Buy</Td>
+              <Td>Amount</Td>
+            </Tr>
+            <Tr>
+              <Td>#1234</Td>
+              <Td>Amy Yelsner</Td>
+              <Td>
+                <i className="pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center"></i>
+              </Td>
+              <Td>May 5th</Td>
+              <Td>Buy</Td>
+              <Td>Amount</Td>
+            </Tr>
+            <Tr>
+              <Td>#1234</Td>
+              <Td>Amy Yelsner</Td>
+              <Td>
+                <i className="pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center"></i>
+              </Td>
+              <Td>May 5th</Td>
+              <Td>Buy</Td>
+              <Td>Amount</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
